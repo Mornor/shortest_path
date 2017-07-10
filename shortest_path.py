@@ -22,7 +22,7 @@ grid = [[0, 0, 1, 0, 0, 0],
         [0, 0, 0, 0, 1, 0]]
 init = [0, 0]
 goal = [len(grid)-1, len(grid[0])-1]
-cost = 1
+cost = 1 # Cost of each mouvement
 
 delta = [[-1, 0], # go up
          [ 0,-1], # go left
@@ -31,9 +31,11 @@ delta = [[-1, 0], # go up
 
 delta_name = ['^', '<', 'v', '>']
 
-def search(grid,init,goal,cost):
-    # ----------------------------------------
-    # insert code here
-    # ----------------------------------------
+def search(grid, init, goal, cost):
+    g_value = 0 # Init g_value to 0 at the beginning
+    pos_x, pos_y = init
+    
 
-    return path
+    return [g_value, pos_x, pos_y]
+
+print(search(grid, init, goal, cost))
