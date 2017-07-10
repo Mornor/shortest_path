@@ -31,11 +31,27 @@ delta = [[-1, 0], # go up
 
 delta_name = ['^', '<', 'v', '>']
 
+def check_item(current_path_array, checked_grid):
+	for path in current_path_array:
+		checked_grid[path[1]][path[2]] = -1
+	return checked_grid 
+
+#def expands(current_path, checked_grid): 
+
+
 def search(grid, init, goal, cost):
-    g_value = 0 # Init g_value to 0 at the beginning
-    pos_x, pos_y = init
-    
+    # Init values
+    g_value = 0
+    pos_x = init[0]
+    pos_y = init[1]
+    path_array = [[g_value, pos_x, pos_y]]
+    checked_grid = grid
 
-    return [g_value, pos_x, pos_y]
+    # Check the already seen positions
+    checked_grid = check_item(path_array, checked_grid)    
+    print(checked_grid)
 
-print(search(grid, init, goal, cost))
+    return path_array
+
+#print(search(grid, init, goal, cost))
+search(grid, init, goal, cost)
