@@ -33,8 +33,35 @@ delta_name = ['^', '<', 'v', '>']
 
 def check_item(current_path_array, checked_grid):
 	for path in current_path_array:
-		checked_grid[path[1]][path[2]] = -1
-	return checked_grid 
+		if(len(path) == 3): # If g_value among current_path_array
+			checked_grid[path[1]][path[2]] = -1
+		else:
+			checked_grid[path[0]][path[1]] = -1
+	return checked_grid
+
+def get_neighbour(pos, grid): 
+	"""
+	:param pos - 1D array posx and posy
+	:param grid - 2D array 
+	:return the neighbour of (case that touch) pos if inside grid and if neighbour not already checked (== -1)
+	"""
+	posx = pos[0]
+	posy = pos[1]
+
+	result = []
+	for i in range(len(delta)): 
+		# Check surroundings 
+		x2 = posx + delta[i][0] 
+		y2 = posy + delta[i][1]
+
+		# If surroundings are within the grid
+		if( (x2 >= 0 and x2 < len(grid)) and (y2 >=0 and y2 < len(grid[0])) ):
+			# If surroundings are not already checked
+			if(grid[x2][y2] != -1 and grid[x2][y2] != -1):
+				result.append([x2, y2])
+				check_item(result, grid)
+	return result, grid
+
 	
 def search(grid, init, goal, cost):
 	# Init values
@@ -45,7 +72,13 @@ def search(grid, init, goal, cost):
 	checked_grid = grid
 	
 	# Check the already seen positions
-	#checked_grid = check_item(path_array, checked_grid)
+	checked_grid = check_item(path_array, checked_grid)
+	#print(checked_grid)
+
+	# Get the surroundings neighbour of the current position
+	neighbours, checked_grid = get_neighbour([pos_x, pos_y], checked_grid)
+	print(checked_grid)
+
 
 	return path_array
 
