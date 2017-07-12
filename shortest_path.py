@@ -70,14 +70,26 @@ def search(grid, init, goal, cost):
 	pos_y = init[1]
 	path_array = [[g_value, pos_x, pos_y]]
 	checked_grid = grid
+	found = False 
+	resign = False
 	
 	# Check the already seen initial position
 	checked_grid = check_item(path_array, checked_grid)
-	#print(checked_grid)
+
+	while not found and not resign: 
+		if(pos_x == goal[0] and pos_y == goal[1]):
+			found = True
+		else:
+			# Get the surroundings neighbour of the current position
+			neighbours, checked_grid = get_neighbours([pos_x, pos_y], checked_grid)
+			g_value += cost # Add 1 step
+
+	
+
 
 	# Get the surroundings neighbour of the current position
 	neighbours, checked_grid = get_neighbours([pos_x, pos_y], checked_grid)
-	print(checked_grid)
+	print(neighbours)
 
 
 	return path_array
