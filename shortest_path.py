@@ -60,6 +60,8 @@ def get_neighbours(pos, grid):
 			if(grid[x2][y2] != -1 and grid[x2][y2] != -1):
 				result.append([x2, y2])
 				check_item(result, grid)
+
+	print(result)
 	return result, grid
 
 	
@@ -68,7 +70,7 @@ def search(grid, init, goal, cost):
 	g_value = 0
 	pos_x = init[0]
 	pos_y = init[1]
-	path_array = [[g_value, pos_x, pos_y]]
+	path_array = [[g_value, pos_y, pos_x]]
 	checked_grid = grid
 	found = False 
 	resign = False
@@ -76,21 +78,18 @@ def search(grid, init, goal, cost):
 	# Check the already seen initial position
 	checked_grid = check_item(path_array, checked_grid)
 
+	current_pos = [[pos_x, pos_y]] # Array of max 2 arrays representing the case we're on
+
 	while not found and not resign: 
 		if(pos_x == goal[0] and pos_y == goal[1]):
 			found = True
 		else:
-			# Get the surroundings neighbour of the current position
+			# Get the surroundings neighbours of the current position
 			neighbours, checked_grid = get_neighbours([pos_x, pos_y], checked_grid)
+			print(neighbours)
 			g_value += cost # Add 1 step
-
-	
-
-
-	# Get the surroundings neighbour of the current position
-	neighbours, checked_grid = get_neighbours([pos_x, pos_y], checked_grid)
-	print(neighbours)
-
+			#print(path_array)
+			#path_array.append([pos_x, pos_y])
 
 	return path_array
 
